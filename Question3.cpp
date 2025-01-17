@@ -22,11 +22,12 @@ public:
     }
     
 
-
+    //Ajouter une arête entre deux sommets déjà existants
     void addarete(int origine, int arrivee, int poids) {
         adj[origine].push_back({arrivee, poids});
     }
 
+    //Ajouter deux sommets et une arête entre ces sommets
     void addEdge(int origine, int arrivee, int poids) {
         addsommet(origine);
         addsommet(arrivee);
@@ -37,9 +38,14 @@ public:
         std::cout << s;
     }
 
-    void Affichergraph() const {
+      void Affichergraph() const {
+        std::cout << "{";
+        bool second = true;
         for (const auto& paire : adj) {
-            std::cout << "{";
+            if (!second){
+                std::cout << ", ";
+            }
+            
             AfficherSommet(paire.first);
             std::cout << ": [";
             bool first = true;
@@ -48,16 +54,20 @@ public:
                     std::cout << ", ";
                 }
                 AfficherSommet(arete.first);
-                std::cout << "(" << arete.second << ")";  // Afficher le poids de l'arête
+                std::cout << "(" << arete.second << ")"; 
                 first = false;
             }
-            std::cout << "]" << std::endl;
+            std::cout << "]" ;
+            second = false;
+
         }
+        std::cout << "}" << std::endl;
     }
 
     void dfs(int sommet) {
         if (visite[sommet]) return;  // Si déjà visité, on arrête
         std::stack <int> pile;
+        pile.push(sommet);
         while(!pile.empty()){
             int n = pile.top();
             pile.pop();
@@ -108,9 +118,14 @@ public:
         std::cout << sommet;
     }
 
-    void Affichergraph() const {
+      void Affichergraph() const {
+        std::cout << "{";
+        bool second = true;
         for (const auto& paire : adj) {
-            std::cout << "{";
+            if (!second){
+                std::cout << ", ";
+            }
+            
             AfficherSommet(paire.first);
             std::cout << ": [";
             bool first = true;
@@ -122,13 +137,17 @@ public:
                 std::cout << "(" << arete.second << ")"; 
                 first = false;
             }
-            std::cout << "]" << std::endl;
+            std::cout << "]" ;
+            second = false;
+
         }
+        std::cout << "}" << std::endl;
     }
     
     void dfs(const std::string& sommet) {
-        if (visite[sommet]) return;  // Si déjà visité, on arrête
+        if (visite[sommet]) return;  // Si déjà visité : on arrête
         std::stack<std::string> pile;
+        pile.push(sommet);
         while(!pile.empty()){
             std::string n = pile.top();
             pile.pop();
@@ -161,7 +180,7 @@ int main() {
     std::cout << "Graph avec des sommets de type int:" << std::endl;
     gInt.Affichergraph();
 
-    std::cout << "\nParcours en profondeur depuis le sommet 1:" << std::endl;
+    std::cout << "Parcours en profondeur depuis le sommet 1:" << std::endl;
     gInt.dfs(1);
 
     // Utilisation du graphe avec des sommets de type string
@@ -172,10 +191,10 @@ int main() {
     gString.addEdge("Marseille", "Nice", 70);
     gString.addEdge("Nice", "Paris", 200);
 
-    std::cout << "\nGraph avec des sommets de type string:" << std::endl;
+    std::cout << "Graph avec des sommets de type string:" << std::endl;
     gString.Affichergraph();
 
-    std::cout << "\nParcours en profondeur depuis 'Paris':" << std::endl;
+    std::cout << "Parcours en profondeur depuis 'Paris':" << std::endl;
     gString.dfs("Paris");
 
     return 0;
