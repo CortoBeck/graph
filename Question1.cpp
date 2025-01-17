@@ -36,9 +36,14 @@ public:
         std::cout << s;
     }
 
-    void Affichergraph() const {
+      void Affichergraph() const {
+        std::cout << "{";
+        bool second = true;
         for (const auto& paire : adj) {
-            std::cout << "{";
+            if (!second){
+                std::cout << ", ";
+            }
+            
             AfficherSommet(paire.first);
             std::cout << ": [";
             bool first = true;
@@ -47,11 +52,14 @@ public:
                     std::cout << ", ";
                 }
                 AfficherSommet(arete.first);
-                std::cout << "(" << arete.second << ")";  // Afficher le poids de l'arête
+                std::cout << "(" << arete.second << ")"; 
                 first = false;
             }
-            std::cout << "]" << std::endl;
+            std::cout << "]" ;
+            second = false;
+
         }
+        std::cout << "}" << std::endl;
     }
 
     void dfs(int sommet) {
@@ -103,8 +111,13 @@ public:
     }
 
     void Affichergraph() const {
+        std::cout << "{";
+        bool second = true;
         for (const auto& paire : adj) {
-            std::cout << "{";
+            if (!second){
+                std::cout << ", ";
+            }
+            
             AfficherSommet(paire.first);
             std::cout << ": [";
             bool first = true;
@@ -116,8 +129,11 @@ public:
                 std::cout << "(" << arete.second << ")"; 
                 first = false;
             }
-            std::cout << "]" << std::endl;
+            std::cout << "]" ;
+            second = false;
+
         }
+        std::cout << "}" << std::endl;
     }
 
     void dfs(const std::string& sommet) {
